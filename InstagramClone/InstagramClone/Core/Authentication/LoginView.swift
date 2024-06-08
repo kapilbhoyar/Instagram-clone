@@ -15,6 +15,9 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                
+                Spacer(minLength: 140)
+                
                 Image("instagram-logo-black")
                     .resizable()
                     .scaledToFit()
@@ -23,18 +26,10 @@ struct LoginView: View {
                 VStack {
                     TextField("Enter your email", text: $email)
                         .textInputAutocapitalization(.never)
-                        .font(.subheadline)
-                        .padding(12)
-                        .background(Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .padding(.horizontal, 24)
+                        .modifier(IGTextFieldModifier())
                     
                     SecureField("Enter your password", text: $password)
-                        .font(.subheadline)
-                        .padding(12)
-                        .background(Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .padding(.horizontal, 24)
+                        .modifier(IGTextFieldModifier())
                     
                     
                     Button {
@@ -73,6 +68,37 @@ struct LoginView: View {
                             .frame(width: (UIScreen.main.bounds.width / 2) - 40, height: 0.5)
                     }
                     .foregroundStyle(.gray)
+                    
+                    HStack {
+                        Image("facebook-logo")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        
+                        Text("Continue with Facebook")
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color(.systemBlue))
+                    }
+                    .padding(.top, 8)
+                    
+                    Spacer()
+                    
+                    Divider()
+                    
+                    NavigationLink {
+                        AddEmailView()
+                            .navigationBarBackButtonHidden()
+                    } label: {
+                        HStack(spacing: 3) {
+                            Text("Don't have an account?")
+                            
+                            Text("Sign Up")
+                                .fontWeight(.semibold)
+                        }
+                        .font(.footnote)
+                    }
+                    .padding(.vertical, 16)
+
                 }
             }
         }

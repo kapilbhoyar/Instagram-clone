@@ -1,13 +1,13 @@
 //
-//  ProfileView.swift
+//  CurrentUserProfileView.swift
 //  InstagramClone
 //
-//  Created by Shadow  on 31/05/24.
+//  Created by Shadow  on 07/06/24.
 //
 
 import SwiftUI
 
-struct ProfileView: View {
+struct CurrentUserProfileView: View {
     let user: User
     
     var posts: [Post] {
@@ -15,6 +15,7 @@ struct ProfileView: View {
     }
     
     var body: some View {
+        NavigationStack {
             ScrollView {
                 //header
                 ProfileHeaderView(user: user)
@@ -24,9 +25,20 @@ struct ProfileView: View {
             }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "line.3.horizontal")
+                            .foregroundStyle(.black)
+                    }
+                }
+            }
         }
+    }
 }
 
 #Preview {
-    ProfileView(user: User.MOCK_USERS[3])
+    CurrentUserProfileView(user: User.MOCK_USERS[0])
 }
