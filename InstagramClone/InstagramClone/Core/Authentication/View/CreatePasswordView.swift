@@ -1,5 +1,5 @@
 //
-//  CompleteSignUpView.swift
+//  CreatePasswordView.swift
 //  InstagramClone
 //
 //  Created by Shadow  on 06/06/24.
@@ -7,27 +7,33 @@
 
 import SwiftUI
 
-struct CompleteSignUpView: View {
+struct CreatePasswordView: View {
     @Environment(\.dismiss)var dismiss
-
+    @EnvironmentObject var viewModel: RegistrationViewModel
+    
     var body: some View {
         VStack(spacing: 12) {
-            Text("Welcome to Instagram, bhoyar_kapil")
+            Text("Create a password")
                 .font(.title2)
                 .fontWeight(.bold)
-                .padding(.horizontal, 24)
-                .multilineTextAlignment(.center)
+                .padding(.top)
             
-            Text("Click below complete registration and start using Instagram.")
+            Text("Your password must be atleast 6 characters in length.")
                 .font(.footnote)
-//                .foregroundStyle(Color(.gray))
+                .foregroundStyle(Color(.gray))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
             
-            Button {
-                print("Complete sign up")
+            SecureField("Password", text: $viewModel.password)
+                .textInputAutocapitalization(.never)
+                .modifier(IGTextFieldModifier())
+                .padding(.top)
+            
+            NavigationLink {
+                CompleteSignUpView()
+                    .navigationBarBackButtonHidden()
             } label: {
-                Text("Complete Sign Up")
+                Text("Next")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundStyle(.white)
@@ -36,6 +42,9 @@ struct CompleteSignUpView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
             .padding(.vertical)
+            
+            
+            Spacer()
         }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -50,5 +59,5 @@ struct CompleteSignUpView: View {
 }
 
 #Preview {
-    CompleteSignUpView()
+    CreatePasswordView()
 }

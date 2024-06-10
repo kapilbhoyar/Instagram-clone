@@ -1,5 +1,5 @@
 //
-//  AddEmailView.swift
+//  CompleteSignUpView.swift
 //  InstagramClone
 //
 //  Created by Shadow  on 06/06/24.
@@ -7,33 +7,28 @@
 
 import SwiftUI
 
-struct AddEmailView: View {
-    @State private var email = ""
+struct CompleteSignUpView: View {
     @Environment(\.dismiss)var dismiss
-    
+    @EnvironmentObject var viewModel: RegistrationViewModel
+
     var body: some View {
         VStack(spacing: 12) {
-            Text("Add your email")
+            Text("Welcome to Instagram, \(viewModel.username)")
                 .font(.title2)
                 .fontWeight(.bold)
-                .padding(.top)
+                .padding(.horizontal, 24)
+                .multilineTextAlignment(.center)
             
-            Text("You'll use this email to sign in to your account.")
+            Text("Click below complete registration and start using Instagram.")
                 .font(.footnote)
-                .foregroundStyle(Color(.gray))
+//                .foregroundStyle(Color(.gray))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
             
-            TextField("Email", text: $email)
-                .textInputAutocapitalization(.never)
-                .modifier(IGTextFieldModifier())
-                .padding(.top)
-            
-            NavigationLink {
-                CreateUsernameView()
-                    .navigationBarBackButtonHidden()
+            Button {
+                Task { try await viewModel.createUser() }
             } label: {
-                Text("Next")
+                Text("Complete Sign Up")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundStyle(.white)
@@ -42,9 +37,6 @@ struct AddEmailView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
             .padding(.vertical)
-            
-            
-            Spacer()
         }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -59,5 +51,5 @@ struct AddEmailView: View {
 }
 
 #Preview {
-    AddEmailView()
+    CompleteSignUpView()
 }
